@@ -1,59 +1,67 @@
+#pragma once
 /*
- * Copyright (C) 2004-2009, 2012  Internet Systems Consortium, Inc. ("ISC")
- * Copyright (C) 1999-2003  Internet Software Consortium.
- *
- * Permission to use, copy, modify, and/or distribute this software for any
- * purpose with or without fee is hereby granted, provided that the above
- * copyright notice and this permission notice appear in all copies.
- *
- * THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH
- * REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
- * AND FITNESS.  IN NO EVENT SHALL ISC BE LIABLE FOR ANY SPECIAL, DIRECT,
- * INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
- * LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
- * OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
- * PERFORMANCE OF THIS SOFTWARE.
- */
+* Copyright (C) 2004-2009, 2012-2014  Internet Systems Consortium, Inc. ("ISC")
+* Copyright (C) 1999-2003  Internet Software Consortium.
+*
+* Permission to use, copy, modify, and/or distribute this software for any
+* purpose with or without fee is hereby granted, provided that the above
+* copyright notice and this permission notice appear in all copies.
+*
+* THE SOFTWARE IS PROVIDED "AS IS" AND ISC DISCLAIMS ALL WARRANTIES WITH
+* REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+* AND FITNESS.  IN NO EVENT SHALL ISC BE LIABLE FOR ANY SPECIAL, DIRECT,
+* INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+* LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+* OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+* PERFORMANCE OF THIS SOFTWARE.
+*/
 
 /* $Id$ */
 
 #ifndef ISC_TYPES_H
 #define ISC_TYPES_H 1
-
-#include <isc/bind9.h>
-#include <isc/namespace.h>
+#include <sys/wintypes.h>
+//WINDOWS #include <isc/bind9.h>
 
 /*! \file isc/types.h
- * \brief
- * OS-specific types, from the OS-specific include directories.
- */
-#include <isc/int.h>
-#include <isc/offset.h>
+* \brief
+* OS-specific types, from the OS-specific include directories.
+*/
+//WINDOWS #include <isc/int.h>
+//WINDOWS #include <isc/offset.h>
 
 /*
- * XXXDCL should isc_boolean_t be moved here, requiring an explicit include
- * of <isc/boolean.h> when ISC_TRUE/ISC_FALSE/ISC_TF() are desired?
- */
-#include <isc/boolean.h>
+* XXXDCL should isc_boolean_t be moved here, requiring an explicit include
+* of <isc/boolean.h> when ISC_TRUE/ISC_FALSE/ISC_TF() are desired?
+*/
+//WINDOWS #include <isc/boolean.h>
 /*
- * XXXDCL This is just for ISC_LIST and ISC_LINK, but gets all of the other
- * list macros too.
- */
-#include <isc/list.h>
+* XXXDCL This is just for ISC_LIST and ISC_LINK, but gets all of the other
+* list macros too.
+*/
+//WINDOWS #include <isc/list.h>
 
 /* Core Types.  Alphabetized by defined type. */
+typedef uint8_t isc_uint8_t;
+typedef uint16_t isc_uint16_t;
+typedef uint32_t isc_uint32_t;
+typedef uint64_t isc_uint64_t;
+typedef int8_t isc_int8_t;
+typedef int16_t isc_int16_t;
+typedef int32_t isc_int32_t;
+typedef int64_t isc_int64_t;
 
 typedef struct isc_appctx		isc_appctx_t;	 	/*%< Application context */
 typedef struct isc_backtrace_symmap	isc_backtrace_symmap_t; /*%< Symbol Table Entry */
-typedef struct isc_bitstring		isc_bitstring_t; 	/*%< Bitstring */
 typedef struct isc_buffer		isc_buffer_t;		/*%< Buffer */
-typedef ISC_LIST(isc_buffer_t)		isc_bufferlist_t;	/*%< Buffer List */
+//WINDOWS typedef ISC_LIST(isc_buffer_t)		isc_bufferlist_t;	/*%< Buffer List */
 typedef struct isc_constregion		isc_constregion_t;	/*%< Const region */
 typedef struct isc_consttextregion	isc_consttextregion_t;	/*%< Const Text Region */
+typedef isc_int16_t			isc_dscp_t;		/*%< Diffserv code point */
 typedef struct isc_entropy		isc_entropy_t;		/*%< Entropy */
 typedef struct isc_entropysource	isc_entropysource_t;	/*%< Entropy Source */
 typedef struct isc_event		isc_event_t;		/*%< Event */
-typedef ISC_LIST(isc_event_t)		isc_eventlist_t;	/*%< Event List */
+//WINDOWS typedef ISC_LIST(isc_event_t)		isc_eventlist_t;	/*%< Event List */
 typedef unsigned int			isc_eventtype_t;	/*%< Event Type */
 typedef isc_uint32_t			isc_fsaccess_t;		/*%< FS Access */
 typedef struct isc_hash			isc_hash_t;		/*%< Hash */
@@ -91,26 +99,29 @@ typedef struct isc_stats		isc_stats_t;		/*%< Statistics */
 typedef int				isc_statscounter_t;	/*%< Statistics Counter */
 typedef struct isc_symtab		isc_symtab_t;		/*%< Symbol Table */
 typedef struct isc_task			isc_task_t;		/*%< Task */
-typedef ISC_LIST(isc_task_t)		isc_tasklist_t;		/*%< Task List */
+//WINDOWS typedef ISC_LIST(isc_task_t)		isc_tasklist_t;		/*%< Task List */
 typedef struct isc_taskmgr		isc_taskmgr_t;		/*%< Task Manager */
 typedef struct isc_textregion		isc_textregion_t;	/*%< Text Region */
 typedef struct isc_time			isc_time_t;		/*%< Time */
 typedef struct isc_timer		isc_timer_t;		/*%< Timer */
 typedef struct isc_timermgr		isc_timermgr_t;		/*%< Timer Manager */
 
-typedef void (*isc_taskaction_t)(isc_task_t *, isc_event_t *);
-typedef int (*isc_sockfdwatch_t)(isc_task_t *, isc_socket_t *, void *, int);
+typedef void(*isc_taskaction_t)(isc_task_t *, isc_event_t *);
+typedef int(*isc_sockfdwatch_t)(isc_task_t *, isc_socket_t *, void *, int);
 
 /* The following cannot be listed alphabetically due to forward reference */
-typedef isc_result_t (isc_httpdaction_t)(const char *url,
-					 const char *querystring,
-					 void *arg,
-					 unsigned int *retcode,
-					 const char **retmsg,
-					 const char **mimetype,
-					 isc_buffer_t *body,
-					 isc_httpdfree_t **freecb,
-					 void **freecb_args);
+typedef isc_result_t(isc_httpdaction_t)(const char *url,
+	isc_httpdurl_t *urlinfo,
+	const char *querystring,
+	const char *headers,
+	void *arg,
+	unsigned int *retcode,
+	const char **retmsg,
+	const char **mimetype,
+	isc_buffer_t *body,
+	isc_httpdfree_t **freecb,
+	void **freecb_args);
+
 typedef isc_boolean_t (isc_httpdclientok_t)(const isc_sockaddr_t *, void *);
 
 /*% Resource */
@@ -125,5 +136,12 @@ typedef enum {
 	isc_resource_residentsize,
 	isc_resource_stacksize
 } isc_resource_t;
+
+/*% Statistics formats (text file or XML) */
+typedef enum {
+	isc_statsformat_file,
+	isc_statsformat_xml,
+	isc_statsformat_json
+} isc_statsformat_t;
 
 #endif /* ISC_TYPES_H */

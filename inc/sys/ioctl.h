@@ -34,18 +34,23 @@
  *	@(#)ioctl.h	8.6 (Berkeley) 3/28/94
  * $FreeBSD$
  */
+#pragma once
 
-#ifndef	_SYS_IOCTL_H_
-#define	_SYS_IOCTL_H_
+#include <unistd.h>
 
-#ifdef _KERNEL
-#error "Don't #include ioctl.h in the kernel.  Include xxxio.h instead."
-#endif /* _KERNEL */
+#define TIOCGWINSZ      1
 
-#include <sys/ioccom.h>
+struct winsize {
+    unsigned short ws_row;	/* rows, in characters */
+    unsigned short ws_col;	/* columns, in characters */
+};
 
-#include <sys/filio.h>
-#include <sys/sockio.h>
-#include <sys/ttycom.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#endif /* !_SYS_IOCTL_H_ */
+int ioctl(int fd, unsigned long request, ...);
+
+#ifdef __cplusplus
+}
+#endif
