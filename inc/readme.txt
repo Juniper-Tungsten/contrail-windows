@@ -1,1 +1,1 @@
-Directory for windows specific headers used by windows agent buid
+Directory for windows specific headers used by windows agent build
