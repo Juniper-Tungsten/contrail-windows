@@ -19,29 +19,35 @@
 
 #ifndef ISC_TYPES_H
 #define ISC_TYPES_H 1
+#include <sys/wintypes.h>
 
-#include <isc/bind9.h>
-#include <isc/namespace.h>
 
 /*! \file isc/types.h
  * \brief
  * OS-specific types, from the OS-specific include directories.
  */
-#include <isc/int.h>
-#include <isc/offset.h>
+
 
 /*
  * XXXDCL should isc_boolean_t be moved here, requiring an explicit include
  * of <isc/boolean.h> when ISC_TRUE/ISC_FALSE/ISC_TF() are desired?
  */
-#include <isc/boolean.h>
+
 /*
  * XXXDCL This is just for ISC_LIST and ISC_LINK, but gets all of the other
  * list macros too.
  */
-#include <isc/list.h>
+
 
 /* Core Types.  Alphabetized by defined type. */
+typedef uint8_t isc_uint8_t;
+typedef uint16_t isc_uint16_t;
+typedef uint32_t isc_uint32_t;
+typedef uint64_t isc_uint64_t;
+typedef int8_t isc_int8_t;
+typedef int16_t isc_int16_t;
+typedef int32_t isc_int32_t;
+typedef int64_t isc_int64_t;
 
 typedef struct isc_appctx		isc_appctx_t;	 	/*%< Application context */
 typedef struct isc_backtrace_symmap	isc_backtrace_symmap_t; /*%< Symbol Table Entry */
