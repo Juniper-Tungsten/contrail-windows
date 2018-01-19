@@ -32,6 +32,7 @@
 
 #ifndef _NET_IF_ARP_H_
 #define	_NET_IF_ARP_H_
+#include "netinet/in.h"
 
 /*
  * Address Resolution Protocol.
@@ -43,91 +44,140 @@
  * arp_tha and arp_tpa in that order, according to the lengths
  * specified.  Field names used correspond to RFC 826.
  */
-struct	arphdr {
-	u_short	ar_hrd;		/* format of hardware address */
-#define ARPHRD_ETHER 	1	/* ethernet hardware format */
-#define ARPHRD_IEEE802	6	/* token-ring hardware format */
-#define ARPHRD_ARCNET	7	/* arcnet hardware format */
-#define ARPHRD_FRELAY 	15	/* frame relay hardware format */
-#define ARPHRD_IEEE1394	24	/* firewire hardware format */
-#define ARPHRD_INFINIBAND 32	/* infiniband hardware format */
-	u_short	ar_pro;		/* format of protocol address */
-	u_char	ar_hln;		/* length of hardware address */
-	u_char	ar_pln;		/* length of protocol address */
-	u_short	ar_op;		/* one of: */
-#define	ARPOP_REQUEST	1	/* request to resolve address */
-#define	ARPOP_REPLY	2	/* response to previous request */
-#define	ARPOP_REVREQUEST 3	/* request protocol address given hardware */
-#define	ARPOP_REVREPLY	4	/* response giving protocol address */
-#define ARPOP_INVREQUEST 8 	/* request to identify peer */
-#define ARPOP_INVREPLY	9	/* response identifying peer */
-/*
- * The remaining fields are variable in size,
- * according to the sizes above.
- */
-#ifdef COMMENT_ONLY
-	u_char	ar_sha[];	/* sender hardware address */
-	u_char	ar_spa[];	/* sender protocol address */
-	u_char	ar_tha[];	/* target hardware address */
-	u_char	ar_tpa[];	/* target protocol address */
-#endif
+/* ARP protocol HARDWARE identifiers. */
+#define ARPHRD_NETROM   0               /* from KA9Q: NET/ROM pseudo    */
+#define ARPHRD_ETHER    1               /* Ethernet 10Mbps              */
+#define ARPHRD_EETHER   2               /* Experimental Ethernet        */
+#define ARPHRD_AX25     3               /* AX.25 Level 2                */
+#define ARPHRD_PRONET   4               /* PROnet token ring            */
+#define ARPHRD_CHAOS    5               /* Chaosnet                     */
+#define ARPHRD_IEEE802  6               /* IEEE 802.2 Ethernet/TR/TB    */
+#define ARPHRD_ARCNET   7               /* ARCnet                       */
+#define ARPHRD_APPLETLK 8               /* APPLEtalk                    */
+#define ARPHRD_DLCI     15              /* Frame Relay DLCI             */
+#define ARPHRD_ATM      19              /* ATM                          */
+#define ARPHRD_METRICOM 23              /* Metricom STRIP (new IANA id) */
+#define ARPHRD_IEEE1394 24              /* IEEE 1394 IPv4 - RFC 2734    */
+#define ARPHRD_EUI64    27              /* EUI-64                       */
+#define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
+
+ /* Dummy types for non ARP hardware */
+ #define ARPHRD_SLIP     256
+ #define ARPHRD_CSLIP    257
+ #define ARPHRD_SLIP6    258
+ #define ARPHRD_CSLIP6   259
+ #define ARPHRD_RSRVD    260             /* Notional KISS type           */
+ #define ARPHRD_ADAPT    264
+ #define ARPHRD_ROSE     270
+ #define ARPHRD_X25      271             /* CCITT X.25                   */
+ #define ARPHRD_HWX25    272             /* Boards with X.25 in firmware */
+ #define ARPHRD_CAN      280             /* Controller Area Network      */
+ #define ARPHRD_PPP      512
+ #define ARPHRD_CISCO    513             /* Cisco HDLC                   */
+ #define ARPHRD_HDLC     ARPHRD_CISCO
+ #define ARPHRD_LAPB     516             /* LAPB                         */
+ #define ARPHRD_DDCMP    517             /* Digital's DDCMP protocol     */
+ #define ARPHRD_RAWHDLC  518             /* Raw HDLC                     */
+
+ #define ARPHRD_TUNNEL   768             /* IPIP tunnel                  */
+ #define ARPHRD_TUNNEL6  769             /* IP6IP6 tunnel                */
+ #define ARPHRD_FRAD     770             /* Frame Relay Access Device    */
+ #define ARPHRD_SKIP     771             /* SKIP vif                     */
+ #define ARPHRD_LOOPBACK 772             /* Loopback device              */
+ #define ARPHRD_LOCALTLK 773             /* Localtalk device             */
+ #define ARPHRD_FDDI     774             /* Fiber Distributed Data Interface */
+ #define ARPHRD_BIF      775             /* AP1000 BIF                   */
+ #define ARPHRD_SIT      776             /* sit0 device - IPv6-in-IPv4   */
+ #define ARPHRD_IPDDP    777             /* IP over DDP tunneller        */
+ #define ARPHRD_IPGRE    778             /* GRE over IP                  */
+ #define ARPHRD_PIMREG   779             /* PIMSM register interface     */
+ #define ARPHRD_HIPPI    780             /* High Performance Parallel Interface */
+ #define ARPHRD_ASH      781             /* Nexus 64Mbps Ash             */
+ #define ARPHRD_ECONET   782             /* Acorn Econet                 */
+ #define ARPHRD_IRDA     783             /* Linux-IrDA                   */
+ /* ARP works differently on different FC media .. so  */
+ #define ARPHRD_FCPP     784             /* Point to point fibrechannel  */
+ #define ARPHRD_FCAL     785             /* Fibrechannel arbitrated loop */
+ #define ARPHRD_FCPL     786             /* Fibrechannel public loop     */
+ #define ARPHRD_FCFABRIC 787             /* Fibrechannel fabric          */
+        /* 787->799 reserved for fibrechannel media types */
+ #define ARPHRD_IEEE802_TR 800           /* Magic type ident for TR      */
+ #define ARPHRD_IEEE80211 801            /* IEEE 802.11                  */
+ #define ARPHRD_IEEE80211_PRISM 802      /* IEEE 802.11 + Prism2 header  */
+ #define ARPHRD_IEEE80211_RADIOTAP 803   /* IEEE 802.11 + radiotap header */
+ #define ARPHRD_IEEE802154         804
+ #define ARPHRD_IEEE802154_MONITOR 805   /* IEEE 802.15.4 network monitor */
+
+ #define ARPHRD_PHONET   820             /* PhoNet media type            */
+ #define ARPHRD_PHONET_PIPE 821          /* PhoNet pipe header           */
+ #define ARPHRD_CAIF     822             /* CAIF media type              */
+ #define ARPHRD_IP6GRE   823             /* GRE over IPv6                */
+ #define ARPHRD_NETLINK  824             /* Netlink header               */
+ #define ARPHRD_6LOWPAN  825             /* IPv6 over LoWPAN             */
+
+ #define ARPHRD_VOID       0xFFFF        /* Void type, nothing is known */
+ #define ARPHRD_NONE       0xFFFE        /* zero header length */
+
+ /* ARP protocol opcodes. */
+ #define ARPOP_REQUEST   1               /* ARP request                  */
+ #define ARPOP_REPLY     2               /* ARP reply                    */
+ #define ARPOP_RREQUEST  3               /* RARP request                 */
+ #define ARPOP_RREPLY    4               /* RARP reply                   */
+ #define ARPOP_InREQUEST 8               /* InARP request                */
+ #define ARPOP_InREPLY   9               /* InARP reply                  */
+ #define ARPOP_NAK       10              /* (ATM)ARP NAK                 */
+
+
+ /* ARP ioctl request. */
+ struct arpreq {
+   struct sockaddr       arp_pa;         /* protocol address             */
+   struct sockaddr       arp_ha;         /* hardware address             */
+   int                   arp_flags;      /* flags                        */
+   struct sockaddr       arp_netmask;    /* netmask (only for proxy arps) */
+   char                  arp_dev[16];
+
 };
 
-#define ar_sha(ap)	(((caddr_t)((ap)+1)) +   0)
-#define ar_spa(ap)	(((caddr_t)((ap)+1)) +   (ap)->ar_hln)
-#define ar_tha(ap)	(((caddr_t)((ap)+1)) +   (ap)->ar_hln + (ap)->ar_pln)
-#define ar_tpa(ap)	(((caddr_t)((ap)+1)) + 2*(ap)->ar_hln + (ap)->ar_pln)
+ struct arpreq_old {
+   struct sockaddr       arp_pa;         /* protocol address             */
+   struct sockaddr       arp_ha;         /* hardware address             */
+   int                   arp_flags;      /* flags                        */
+   struct sockaddr       arp_netmask;    /* netmask (only for proxy arps) */
 
-#define arphdr_len2(ar_hln, ar_pln)					\
-	(sizeof(struct arphdr) + 2*(ar_hln) + 2*(ar_pln))
-#define arphdr_len(ap)	(arphdr_len2((ap)->ar_hln, (ap)->ar_pln))
-
-/*
- * ARP ioctl request
- */
-struct arpreq {
-	struct	sockaddr arp_pa;		/* protocol address */
-	struct	sockaddr arp_ha;		/* hardware address */
-	int	arp_flags;			/* flags */
-};
-/*  arp_flags and at_flags field values */
-#define	ATF_INUSE	0x01	/* entry in use */
-#define ATF_COM		0x02	/* completed entry (enaddr valid) */
-#define	ATF_PERM	0x04	/* permanent entry */
-#define	ATF_PUBL	0x08	/* publish entry (respond for other host) */
-#define	ATF_USETRAILERS	0x10	/* has requested trailers */
-
-struct arpstat {
-	/* Normal things that happen: */
-	uint64_t txrequests;	/* # of ARP requests sent by this host. */
-	uint64_t txreplies;	/* # of ARP replies sent by this host. */
-	uint64_t rxrequests;	/* # of ARP requests received by this host. */
-	uint64_t rxreplies;	/* # of ARP replies received by this host. */
-	uint64_t received;	/* # of ARP packets received by this host. */
-
-	uint64_t arp_spares[4];	/* For either the upper or lower half. */
-	/* Abnormal event and error  counting: */
-	uint64_t dropped;	/* # of packets dropped waiting for a reply. */
-	uint64_t timeouts;	/* # of times with entries removed */
-				/* due to timeout. */
-	uint64_t dupips;	/* # of duplicate IPs detected. */
 };
 
-#ifdef _KERNEL
-#include <sys/counter.h>
-#include <net/vnet.h>
+ /* ARP Flag values. */
+ #define ATF_COM         0x02            /* completed entry (ha valid)   */
+ #define ATF_PERM        0x04            /* permanent entry              */
+ #define ATF_PUBL        0x08            /* publish entry                */
+ #define ATF_USETRAILERS 0x10            /* has requested trailers       */
+ #define ATF_NETMASK     0x20            /* want to use a netmask (only
+                                            for proxy entries) */
+ #define ATF_DONTPUB     0x40            /* don't answer this addresses  */
+ /*
+  *      This structure defines an ethernet arp header.
+*/
 
-VNET_PCPUSTAT_DECLARE(struct arpstat, arpstat);
-/*
- * In-kernel consumers can use these accessor macros directly to update
- * stats.
- */
-#define	ARPSTAT_ADD(name, val)	\
-    VNET_PCPUSTAT_ADD(struct arpstat, arpstat, name, (val))
-#define	ARPSTAT_SUB(name, val)	ARPSTAT_ADD(name, -(val))
-#define	ARPSTAT_INC(name)	ARPSTAT_ADD(name, 1)
-#define	ARPSTAT_DEC(name)	ARPSTAT_SUB(name, 1)
+	 struct arphdr {
+		    __be16   ar_hrd;         /* format of hardware address   */
+	        __be16          ar_pro;         /* format of protocol address   */
+	         unsigned char   ar_hln;         /* length of hardware address   */
+	         unsigned char   ar_pln;         /* length of protocol address   */
+	         __be16          ar_op;          /* ARP opcode (command)         */
 
-#endif /* _KERNEL */
+	 #if 0
+	          /*
+	           *      Ethernet looks like this : This bit is variable sized however...
+	          */
+	
+        unsigned char           ar_sha[ETH_ALEN];       /* sender hardware address      */
+        unsigned char           ar_sip[4];              /* sender IP address            */
+        unsigned char           ar_tha[ETH_ALEN];       /* target hardware address      */
+        unsigned char           ar_tip[4];              /* target IP address            */
+    #endif
+	
+	
+};
+
 
 #endif /* !_NET_IF_ARP_H_ */

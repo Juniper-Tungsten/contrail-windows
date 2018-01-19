@@ -42,10 +42,8 @@
 
 #ifndef ISC_MD5_H
 #define ISC_MD5_H 1
-
-#include <isc/lang.h>
-#include <isc/platform.h>
-#include <isc/types.h>
+#include<sys/wintypes.h>
+ #include <isc/lang.h>
 
 #define ISC_MD5_DIGESTLENGTH 16U
 #define ISC_MD5_BLOCK_LENGTH 64U
@@ -56,6 +54,9 @@
 typedef EVP_MD_CTX isc_md5_t;
 
 #else
+
+typedef  uint32_t isc_uint32_t;
+typedef int isc_boolean_t;
 
 typedef struct {
 	isc_uint32_t buf[4];

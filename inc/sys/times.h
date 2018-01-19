@@ -38,25 +38,18 @@
 #ifndef	_SYS_TIMES_H_
 #define	_SYS_TIMES_H_
 
-#include <sys/_types.h>
 
-#ifndef _CLOCK_T_DECLARED
-typedef	__clock_t	clock_t;
-#define	_CLOCK_T_DECLARED
-#endif
+#include <ctime>
+#include <sys/time.h>
 
 struct tms {
-	clock_t tms_utime;	/* User CPU time */
-	clock_t tms_stime;	/* System CPU time */
-	clock_t tms_cutime;	/* User CPU time of terminated child procs */
-	clock_t tms_cstime;	/* System CPU time of terminated child procs */
+    clock_t tms_utime;  /* user time */
+    clock_t tms_stime;  /* system time */
+    clock_t tms_cutime; /* user time of children */
+    clock_t tms_cstime; /* system time of children */
 };
 
-#ifndef _KERNEL
-#include <sys/cdefs.h>
+// Always returns 0.
+clock_t times(struct tms *buf); 
 
-__BEGIN_DECLS
-clock_t	times(struct tms *);
-__END_DECLS
-#endif
 #endif /* !_SYS_TIMES_H_ */

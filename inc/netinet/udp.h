@@ -38,32 +38,32 @@
  * UDP protocol header.
  * Per RFC 768, September, 1981.
  */
+#include <sys/wintypes.h>
+
+
 struct udphdr {
-	u_short	uh_sport;		/* source port */
-	u_short	uh_dport;		/* destination port */
-	u_short	uh_ulen;		/* udp length */
-	u_short	uh_sum;			/* udp checksum */
+	u_int16_t uh_sport;  /* source port */
+	u_int16_t uh_dport;  /* destination port */
+	u_int16_t uh_ulen;   /* udp length */
+	union {
+		u_int16_t uh_sum;    /* udp checksum */
+		u_int16_t check;
+	};
 };
 
-/* 
- * User-settable options (used with setsockopt).
- */
-#define	UDP_ENCAP			1
+ /* UDP socket options */
+ #define UDP_CORK        1       /* Never send partially complete segments */
+ #define UDP_ENCAP       100     /* Set the socket to accept encapsulated packets */
+ #define UDP_NO_CHECK6_TX 101    /* Disable sending checksum for UDP6X */
+ #define UDP_NO_CHECK6_RX 102    /* Disable accpeting checksum for UDP6 */
 
-/* Start of reserved space for third-party user-settable options. */
-#define	UDP_VENDOR			SO_VENDOR
+ /* UDP encapsulation types */
+ #define UDP_ENCAP_ESPINUDP_NON_IKE      1 /* draft-ietf-ipsec-nat-t-ike-00/01 */
+ #define UDP_ENCAP_ESPINUDP      2 /* draft-ietf-ipsec-udp-encaps-06 */
+ #define UDP_ENCAP_L2TPINUDP     3 /* rfc2661 */
+ #define UDP_ENCAP_GTP0          4 /* GSM TS 09.60 */
+ #define UDP_ENCAP_GTP1U         5 /* 3GPP TS 29.060 */
 
-/*
- * UDP Encapsulation of IPsec Packets options.
- */
-/* Encapsulation types. */
-#define	UDP_ENCAP_ESPINUDP_NON_IKE	1 /* draft-ietf-ipsec-nat-t-ike-00/01 */
-#define	UDP_ENCAP_ESPINUDP		2 /* RFC3948 */
 
-/* Default ESP in UDP encapsulation port. */
-#define	UDP_ENCAP_ESPINUDP_PORT		500
-
-/* Maximum UDP fragment size for ESP over UDP. */
-#define	UDP_ENCAP_ESPINUDP_MAXFRAGLEN	552
 
 #endif

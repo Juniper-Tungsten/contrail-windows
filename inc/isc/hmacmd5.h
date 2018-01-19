@@ -25,10 +25,9 @@
 #ifndef ISC_HMACMD5_H
 #define ISC_HMACMD5_H 1
 
-#include <isc/lang.h>
+
 #include <isc/md5.h>
-#include <isc/platform.h>
-#include <isc/types.h>
+
 
 #define ISC_HMACMD5_KEYLENGTH 64
 
