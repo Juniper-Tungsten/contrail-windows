@@ -39,7 +39,18 @@
 
 #ifndef _SYS_FCNTL_H_
 #define	_SYS_FCNTL_H_
+#define FD_CLOEXEC     1
+#define F_SETFD        1
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int fcntl(int fildes, int cmd, ...);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* !_SYS_FCNTL_H_ */

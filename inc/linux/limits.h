@@ -32,10 +32,10 @@
  * $FreeBSD$
  */
 
-#ifndef _LIMITS_H_
-#define	_LIMITS_H_
+#ifndef __LIMITS_H_
+#define	__LIMITS_H_
 #include <windows.h>
 
 #define PATH_MAX            MAX_PATH
 
-#endif /* !_LIMITS_H_ */
+#endif /* !__LIMITS_H_ */
