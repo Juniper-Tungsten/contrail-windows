@@ -70,13 +70,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\..\inc;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>..\..\..\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\..\..\inc;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>..\..\..\inc;$(IncludePath)</IncludePath>
@@ -87,7 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -99,7 +99,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions);WIN32_LEAN_AND_MEAN</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,6 +139,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\isc\hmacsha.cc" />
+    <ClCompile Include="..\..\src\misc\agentconstants.cc" />
+    <ClCompile Include="..\..\src\misc\timeutils.cc" />
+    <ClCompile Include="..\..\src\misc\winnw.cc" />
+    <ClCompile Include="..\..\src\misc\winutils.cc" />
+    <ClCompile Include="..\..\src\misc\wmi.cc" />
+    <ClCompile Include="..\..\src\posix_fcntl.cc" />
+    <ClCompile Include="..\..\src\posix_stdlib.cc" />
+    <ClCompile Include="..\..\src\posix_time.cc" />
+    <ClCompile Include="..\..\src\strings.cc" />
+    <ClCompile Include="..\..\src\sys\eventfd.cc" />
+    <ClCompile Include="..\..\src\sys\ioctl.cc" />
+    <ClCompile Include="..\..\src\sys\resource.cc" />
+    <ClCompile Include="..\..\src\sys\time.cc" />
+    <ClCompile Include="..\..\src\unistd.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
