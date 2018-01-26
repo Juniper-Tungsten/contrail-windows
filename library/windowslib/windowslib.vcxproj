@@ -146,7 +146,6 @@
     <ClCompile Include="..\..\src\misc\timeutils.cc" />
     <ClCompile Include="..\..\src\misc\winnw.cc" />
     <ClCompile Include="..\..\src\misc\winutils.cc" />
-    <ClCompile Include="..\..\src\misc\wmi.cc" />
     <ClCompile Include="..\..\src\posix_fcntl.cc" />
     <ClCompile Include="..\..\src\posix_stdlib.cc" />
     <ClCompile Include="..\..\src\posix_time.cc" />

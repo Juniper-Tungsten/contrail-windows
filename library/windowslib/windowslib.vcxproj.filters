@@ -66,9 +66,6 @@
     <ClCompile Include="..\..\src\misc\winutils.cc">
       <Filter>Source Files\misc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\misc\wmi.cc">
-      <Filter>Source Files\misc</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\isc\hmacsha.cc">
       <Filter>Source Files\isc</Filter>
     </ClCompile>
