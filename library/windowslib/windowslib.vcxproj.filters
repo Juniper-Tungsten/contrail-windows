@@ -16,8 +16,58 @@
     <Filter Include="Source Files\misc">
       <UniqueIdentifier>{5639f35c-261c-485f-830d-9e8a29af3137}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\sys">
+      <UniqueIdentifier>{b2c25272-eb0f-4cf6-9b26-7efa51e49ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\isc">
+      <UniqueIdentifier>{12b0edb8-f4c3-4fc0-8b5d-0e0f4d9e37c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\posix_fcntl.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\posix_stdlib.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\posix_time.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\strings.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\unistd.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sys\eventfd.cc">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sys\ioctl.cc">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sys\resource.cc">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sys\time.cc">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\agentconstants.cc">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\timeutils.cc">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\winnw.cc">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\misc\winutils.cc">
+      <Filter>Source Files\misc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\isc\hmacsha.cc">
+      <Filter>Source Files\isc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
