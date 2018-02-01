@@ -23,14 +23,18 @@ namespace unittests
 
         }
         
-        TEST_METHOD(test_ffs_all)
+        TEST_METHOD(test_ffs_sanity)
         {
-            unsigned short minval = std::numeric_limits<unsigned short>::min();
-            unsigned short maxval = std::numeric_limits<unsigned short>::max();
-            for (unsigned short i = minval; i <= maxval; i++)
+            unsigned int i = 1;
+            unsigned int maxsize = sizeof(i) * CHAR_BIT;
+            unsigned int val = 0;
+            val = ~val; //not using ~0 for clarity only
+            while (i < maxsize )
             {
-                TryFFS(i);
+
             }
+
+    
 
         }
       
