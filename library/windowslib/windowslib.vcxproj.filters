@@ -69,5 +69,11 @@
     <ClCompile Include="..\..\src\isc\hmacsha.cc">
       <Filter>Source Files\isc</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\endian.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\sys\wait.cc">
+      <Filter>Source Files\sys</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
