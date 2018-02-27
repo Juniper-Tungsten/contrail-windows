@@ -141,6 +141,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\endian.cc" />
     <ClCompile Include="..\..\src\isc\hmacsha.cc" />
     <ClCompile Include="..\..\src\misc\agentconstants.cc" />
     <ClCompile Include="..\..\src\misc\timeutils.cc" />
@@ -154,6 +155,7 @@
     <ClCompile Include="..\..\src\sys\ioctl.cc" />
     <ClCompile Include="..\..\src\sys\resource.cc" />
     <ClCompile Include="..\..\src\sys\time.cc" />
+    <ClCompile Include="..\..\src\sys\wait.cc" />
     <ClCompile Include="..\..\src\unistd.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
