@@ -40,15 +40,23 @@
  */
 #include <sys/wintypes.h>
 
+#include <stdint.h>
 
 struct udphdr {
-	u_int16_t uh_sport;  /* source port */
-	u_int16_t uh_dport;  /* destination port */
-	u_int16_t uh_ulen;   /* udp length */
-	union {
-		u_int16_t uh_sum;    /* udp checksum */
-		u_int16_t check;
-	};
+    union {
+        struct {
+            uint16_t uh_sport;  /* source port */
+            uint16_t uh_dport;  /* destination port */
+            uint16_t uh_ulen;   /* udp length */
+            uint16_t uh_sum;    /* udp checksum */
+        };
+        struct {
+            uint16_t source;
+            uint16_t dest;
+            uint16_t len;
+            uint16_t check;
+        };
+    };
 };
 
  /* UDP socket options */
