@@ -53,6 +53,11 @@
 
 typedef EVP_MD_CTX isc_md5_t;
 
+#elif PKCS11CRYPTO
+#include <pk11/pk11.h>
+
+typedef pk11_context_t isc_md5_t;
+
 #else
 
 typedef  uint32_t isc_uint32_t;
