@@ -2,12 +2,17 @@
 
 #include <sstream>
 #include <iomanip>
-#include <boost/algorithm/string/replace.hpp>
 
 char* strptime(const char* str, const char* format, struct tm* tm) {
     std::string replaced(format);
-    // strptime supports %F and std::get_time does not, so we replace it
-    boost::algorithm::replace_all(replaced, "%F", "%Y-%m-%d");
+    size_t position = 0;
+    std::string origin("%F"), target("%Y-%m-%d");
+    while ((position = replaced.find(origin, position)) != std::string::npos)
+    {
+        replaced.replace(position, origin.size(), target);
+        position += target.size();
+    }
+    
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
     input >> std::get_time(tm, replaced.c_str());
@@ -34,7 +39,7 @@ char *ctime_r(const time_t *timep, char buf[]) {
     char buffer[101];
     errno_t e = ctime_s(buffer, 100, timep);
     if (e == 0) {
-        strncpy(buf, buffer,100);
+        strncpy_s(buf, 100, buffer, 100);
         return buf;
     } else
         return nullptr;

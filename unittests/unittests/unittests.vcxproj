@@ -115,7 +115,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\library\windowslib\$(Platform)\$(Configuration);$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\library\$(Platform)\$(Configuration);$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>windowslib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -163,20 +163,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\tests\isc\test_hmacsha.cc" />
-    <ClCompile Include="..\..\tests\misc\test_agentconstants.cc" />
-    <ClCompile Include="..\..\tests\misc\test_timeutils.cc" />
-    <ClCompile Include="..\..\tests\misc\test_winnw.cc" />
-    <ClCompile Include="..\..\tests\misc\test_winutils.cc" />
-    <ClCompile Include="..\..\tests\misc\test_wmi.cc" />
-    <ClCompile Include="..\..\tests\sys\test_eventfd.cc" />
-    <ClCompile Include="..\..\tests\sys\test_ioctl.cc" />
-    <ClCompile Include="..\..\tests\sys\test_resource.cc" />
-    <ClCompile Include="..\..\tests\sys\test_time.cc" />
-    <ClCompile Include="..\..\tests\test_posix_fcntl.cc" />
-    <ClCompile Include="..\..\tests\test_posix_stdlib.cc" />
-    <ClCompile Include="..\..\tests\test_posix_time.cc" />
-    <ClCompile Include="..\..\tests\test_strings.cc" />
-    <ClCompile Include="..\..\tests\test_unistd.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

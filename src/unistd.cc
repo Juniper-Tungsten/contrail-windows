@@ -12,36 +12,34 @@ int usleep(useconds_t usec) {
     return 0;
 }
 
-//review if this needs to be in a try-catch
 int getppid() {
     HANDLE hSnapshot = INVALID_HANDLE_VALUE;
     PROCESSENTRY32 pe32;
-
-    DWORD parentid = 0, pid=0;
-    
-    pid = GetCurrentProcessId();
+    DWORD ppid = 0, pid = GetCurrentProcessId();
 
     hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+    __try {
+        if (hSnapshot == INVALID_HANDLE_VALUE)
+            __leave;
 
-    if (INVALID_HANDLE_VALUE == hSnapshot)
-            return -1;
+        ZeroMemory(&pe32, sizeof(pe32));
+        pe32.dwSize = sizeof(pe32);
+        if (!Process32First(hSnapshot, &pe32))
+            __leave;
 
-    memset(&pe32, 0, sizeof(pe32));
-    pe32.dwSize = sizeof(PROCESSENTRY32);
-    if (!Process32First(hSnapshot, &pe32))
-        return -1;
+        do {
+            if (pe32.th32ProcessID == pid) {
+                ppid = pe32.th32ParentProcessID;
+                break;
+            }
+        } while (Process32Next(hSnapshot, &pe32));
 
-    do {
-        if (pe32.th32ProcessID == pid) {
-            parentid = pe32.th32ParentProcessID;
-            break;
-        }
-    } while (Process32Next(hSnapshot, &pe32));
-
-    if (hSnapshot != INVALID_HANDLE_VALUE)
-        CloseHandle(hSnapshot);
-
-    return parentid;
+    }
+    __finally {
+        if (hSnapshot != INVALID_HANDLE_VALUE)
+            CloseHandle(hSnapshot);
+    }
+    return ppid;
 }
 
 long sysconf(int name) {
