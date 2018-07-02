@@ -7,12 +7,18 @@ char* strptime(const char* str, const char* format, struct tm* tm) {
     std::string replaced(format);
     size_t position = 0;
     std::string origin("%F"), target("%Y-%m-%d");
-    while ((position = replaced.find(origin, position)) != std::string::npos)
-    {
-        replaced.replace(position, origin.size(), target);
-        position += target.size();
+    while ((position = replaced.find(origin, position)) != std::string::npos) {
+        size_t pos = position;
+        while (pos != 0 && replaced[pos - 1] == '%')
+            pos--;
+        if (((position - pos) & 1) == 0) {
+            replaced.replace(position, origin.size(), target);
+            position += target.size();
+        }
+        else
+            position += origin.size();
     }
-    
+
     std::istringstream input(str);
     input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
     input >> std::get_time(tm, replaced.c_str());
@@ -20,7 +26,6 @@ char* strptime(const char* str, const char* format, struct tm* tm) {
         return nullptr;
     return const_cast<char*>(str + input.tellg());
 }
-
 time_t timegm(struct tm *_tm) {
     return _mkgmtime(_tm);
 }
