@@ -206,18 +206,13 @@ struct nd_neighbor_advert {	/* neighbor advertisement */
 	/* could be followed by options */
 };
 
-u_int32_t custom_htonl(u_int32_t x);
-
-
-#define CONSTANT_HTONL custom_htonl
-
 #define nd_na_type		nd_na_hdr.icmp6_type
 #define nd_na_code		nd_na_hdr.icmp6_code
 #define nd_na_cksum		nd_na_hdr.icmp6_cksum
 #define nd_na_flags_reserved	nd_na_hdr.icmp6_data32[0]
-#define ND_NA_FLAG_ROUTER       CONSTANT_HTONL(0x80000000)
-#define ND_NA_FLAG_SOLICITED    CONSTANT_HTONL(0x40000000)
-#define ND_NA_FLAG_OVERRIDE     CONSTANT_HTONL(0x20000000)
+#define ND_NA_FLAG_ROUTER       (htonl(0x80000000))
+#define ND_NA_FLAG_SOLICITED    (htonl(0x40000000))
+#define ND_NA_FLAG_OVERRIDE     (htonl(0x20000000))
 
 struct nd_redirect {		/* redirect */
 	struct icmp6_hdr	nd_rd_hdr;
@@ -419,8 +414,8 @@ struct rr_pco_use {		/* use prefix part */
 #define ICMP6_RR_PCOUSE_RAFLAGS_ONLINK	0x80
 #define ICMP6_RR_PCOUSE_RAFLAGS_AUTO	0x40
 
-#define ICMP6_RR_PCOUSE_FLAGS_DECRVLTIME     CONSTANT_HTONL(0x80000000)
-#define ICMP6_RR_PCOUSE_FLAGS_DECRPLTIME     CONSTANT_HTONL(0x40000000)
+#define ICMP6_RR_PCOUSE_FLAGS_DECRVLTIME     (htonl(0x80000000))
+#define ICMP6_RR_PCOUSE_FLAGS_DECRPLTIME     (htonl(0x40000000))
 
 struct rr_result {		/* router renumbering result message */
 	u_int16_t	rrr_flags;
@@ -429,8 +424,8 @@ struct rr_result {		/* router renumbering result message */
 	u_int32_t	rrr_ifid;
 	struct	linux_in6_addr rrr_prefix;
 };
-#define ICMP6_RR_RESULT_FLAGS_OOB		CONSTANT_HTONS(0x0002)
-#define ICMP6_RR_RESULT_FLAGS_FORBIDDEN		CONSTANT_HTONS(0x0001)
+#define ICMP6_RR_RESULT_FLAGS_OOB        (htonl(0x0002))
+#define ICMP6_RR_RESULT_FLAGS_FORBIDDEN  (htonl(0x0001))
 
 /*
  * icmp6 filter structures.

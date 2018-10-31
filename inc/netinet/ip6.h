@@ -94,8 +94,8 @@ struct ip6_hdr {
 #define IPV6_VERSION		0x60
 #define IPV6_VERSION_MASK	0xf0
 
-#define IPV6_FLOWINFO_MASK	CONSTANT_HTONL(0x0fffffff) /* flow info (28 bits) */
-#define IPV6_FLOWLABEL_MASK	CONSTANT_HTONL(0x000fffff) /* flow label (20 bits) */
+#define IPV6_FLOWINFO_MASK  (htonl(0x0fffffff)) /* flow info (28 bits) */
+#define IPV6_FLOWLABEL_MASK (htonl(0x000fffff)) /* flow label (20 bits) */
 #if 1
 /* ECN bits proposed by Sally Floyd */
 #define IP6TOS_CE		0x01	/* congestion experienced */
