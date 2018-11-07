@@ -37,40 +37,56 @@
 #include <stdint.h>
 #include <posix_time.h>
 
-#define RLIMIT_NOFILE 7
+#define RLIMIT_CPU     0
+#define RLIMIT_FSIZE     1
+#define RLIMIT_DATA     2
+#define RLIMIT_STACK     3
+#define RLIMIT_CORE     4
+#define RLIMIT_RSS     5
+#define RLIMIT_NPROC     6
+#define RLIMIT_NOFILE     7
+#define RLIMIT_MEMLOCK     8
+#define RLIMIT_AS     9
+#define RLIMIT_LOCKS     10
+#define RLIMIT_SIGPENDING     11
+#define RLIMIT_MSGQUEUE     12
+#define RLIMIT_NICE     13 
+#define RLIMIT_RTPRIO     14
+#define RLIMIT_RTTIME     15
+#define RLIM_NLIMITS     16
 
-#define RUSAGE_SELF     0
-#define RUSAGE_CHILDREN   (-1)
-#define RUSAGE_BOTH  (-2)            /* sys_wait4() uses this */
-#define RUSAGE_THREAD   1               /* only the calling thread */
+#define	RUSAGE_SELF     0
+#define	RUSAGE_CHILDREN     (-1)
+#define RUSAGE_BOTH      (-2)
+#define	RUSAGE_THREAD     1
 
 struct rlimit {
-	uint32_t rlim_cur;
-	uint32_t rlim_max;
+    uint32_t rlim_cur;
+    uint32_t rlim_max;
 };
 
 struct	rusage {
-	struct timeval ru_utime;	/* user time used */
-	struct timeval ru_stime;	/* system time used */
-	long	ru_maxrss;		/* max resident set size */
+    struct timeval ru_utime;	/* user time used */
+    struct timeval ru_stime;	/* system time used */
+    long	ru_maxrss;		/* max resident set size */
 #define	ru_first	ru_ixrss
-	long	ru_ixrss;		/* integral shared memory size */
-	long	ru_idrss;		/* integral unshared data " */
-	long	ru_isrss;		/* integral unshared stack " */
-	long	ru_minflt;		/* page reclaims */
-	long	ru_majflt;		/* page faults */
-	long	ru_nswap;		/* swaps */
-	long	ru_inblock;		/* block input operations */
-	long	ru_oublock;		/* block output operations */
-	long	ru_msgsnd;		/* messages sent */
-	long	ru_msgrcv;		/* messages received */
-	long	ru_nsignals;		/* signals received */
-	long	ru_nvcsw;		/* voluntary context switches */
-	long	ru_nivcsw;		/* involuntary " */
+    long	ru_ixrss;		/* integral shared memory size */
+    long	ru_idrss;		/* integral unshared data " */
+    long	ru_isrss;		/* integral unshared stack " */
+    long	ru_minflt;		/* page reclaims */
+    long	ru_majflt;		/* page faults */
+    long	ru_nswap;		/* swaps */
+    long	ru_inblock;		/* block input operations */
+    long	ru_oublock;		/* block output operations */
+    long	ru_msgsnd;		/* messages sent */
+    long	ru_msgrcv;		/* messages received */
+    long	ru_nsignals;		/* signals received */
+    long	ru_nvcsw;		/* voluntary context switches */
+    long	ru_nivcsw;		/* involuntary " */
 #define	ru_last		ru_nivcsw
 };
 
-int	getrusage(int, struct rusage *);
+int getrusage(int, struct rusage *);
 int getrlimit(int resource, struct rlimit *rlp);
 int setrlimit(int resource, const struct rlimit *rlp);
 

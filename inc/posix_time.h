@@ -63,6 +63,9 @@ struct tm *gmtime_r(const time_t *timep, struct tm *result);
 char *ctime_r(const time_t *timep, char *buf);
 int clock_gettime(clockid_t clk_id, struct timespec *tv);
 int clock_getres(clockid_t clk_id, struct timespec *res);
+int clock_gettime_monotonic(struct timespec *ts);
+int clock_gettime_realtime(struct timespec *ts);
+int clock_getres_monotonic(struct timespec *res);
 
 #ifdef __cplusplus
 }

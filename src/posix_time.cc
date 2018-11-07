@@ -7,11 +7,13 @@ char* strptime(const char* str, const char* format, struct tm* tm) {
     std::string replaced(format);
     size_t position = 0;
     std::string origin("%F"), target("%Y-%m-%d");
-    while ((position = replaced.find(origin, position)) != std::string::npos) {
+    while ((position = replaced.find(origin, position)) != std::string::npos)
+    {
         size_t pos = position;
-        while (pos != 0 && replaced[pos - 1] == '%')
+        while (pos != 0 && replaced[pos-1] == '%')
             pos--;
-        if (((position - pos) & 1) == 0) {
+        if (((position - pos) & 1) == 0)
+        {
             replaced.replace(position, origin.size(), target);
             position += target.size();
         }
@@ -26,8 +28,12 @@ char* strptime(const char* str, const char* format, struct tm* tm) {
         return nullptr;
     return const_cast<char*>(str + input.tellg());
 }
+
 time_t timegm(struct tm *_tm) {
-    return _mkgmtime(_tm);
+    if (_tm == nullptr)
+        return -1;
+    else
+        return _mkgmtime(_tm);
 }
 
 struct tm *gmtime_r(const time_t *time, struct tm *_tm) {
@@ -42,6 +48,8 @@ char *ctime_r(const time_t *timep, char buf[]) {
     if (timep == nullptr || buf == nullptr)
         return nullptr;
     char buffer[101];
+    _tzset();//windows ctime_s does not call _tzset but linux ctime_r does - hence we call it here.
+    //there is no indication in the documentation that these values are "unset" later.
     errno_t e = ctime_s(buffer, 100, timep);
     if (e == 0) {
         strncpy_s(buf, 100, buffer, 100);
